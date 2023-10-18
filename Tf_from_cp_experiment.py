@@ -1,5 +1,4 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QGridLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QGridLayout, QVBoxLayout
 
 from water_heat_capacity import calculate_tf_from_experiment
 
