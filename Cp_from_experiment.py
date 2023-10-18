@@ -1,10 +1,10 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QGridLayout, QVBoxLayout
 
-from water_heat_capacity import calculate_tf
+from water_heat_capacity import water_heat_capacity_from_experiment
 
 
-class CalorimetryApp(QWidget):
+class TFromCpExperimentApp(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -17,7 +17,8 @@ class CalorimetryApp(QWidget):
         self.input_temperature_1 = QLineEdit(self)
         label_temperature_2 = QLabel("Temperature 2 / °C:", self)
         self.input_temperature_2 = QLineEdit(self)
-        self.input = QLineEdit(self)
+        label_temperature_f = QLabel("Temperature f / °C:", self)
+        self.input_temperature_f = QLineEdit(self)
 
         label_mass_1 = QLabel("Mass 1 / g:", self)
         self.input_mass_1 = QLineEdit(self)
@@ -28,6 +29,8 @@ class CalorimetryApp(QWidget):
         grid_layout.addWidget(self.input_temperature_1, 0, 1)
         grid_layout.addWidget(label_temperature_2, 1, 0)
         grid_layout.addWidget(self.input_temperature_2, 1, 1)
+        grid_layout.addWidget(label_temperature_f, 2, 0)
+        grid_layout.addWidget(self.input_temperature_f, 2, 1)
 
         grid_layout.addWidget(label_mass_1, 0, 2)
         grid_layout.addWidget(self.input_mass_1, 0, 3)
@@ -55,18 +58,28 @@ class CalorimetryApp(QWidget):
     def add_numbers(self):
         try:
             mass_1 = float(self.input_mass_1.text())
-            temperature_1 = float(self.input_temperature_1.text())
             mass_2 = float(self.input_mass_2.text())
+            temperature_1 = float(self.input_temperature_1.text())
             temperature_2 = float(self.input_temperature_2.text())
-            result = round(calculate_tf(mass_1, mass_2, temperature_1, temperature_2), 1)
-            self.result_label.setText(f"Equilibrium temperature: {result} °C")
+            temperature_f = float(self.input_temperature_f.text())
+            result = round(
+                water_heat_capacity_from_experiment(
+                    mass_1,
+                    mass_2,
+                    temperature_1,
+                    temperature_2,
+                    temperature_f,
+                ),
+                2,
+            )
+            self.result_label.setText(f"Heat capacity: {result} cal / g °C")
         except ValueError:
             self.result_label.setText("Please enter valid numbers.")
 
 
 def main():
     app = QApplication(sys.argv)
-    ex = CalorimetryApp()
+    ex = TFromCpExperimentApp()
     sys.exit(app.exec())
 
 
