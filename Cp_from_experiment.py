@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButto
 from water_heat_capacity import water_heat_capacity_from_experiment
 
 
-class TFromCpExperimentApp(QWidget):
+class CpFromExperimentApp(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -79,7 +79,7 @@ class TFromCpExperimentApp(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    ex = TFromCpExperimentApp()
+    ex = CpFromExperimentApp()
     sys.exit(app.exec())
 
 
