@@ -75,13 +75,5 @@ class CpFromExperimentApp(QWidget):
             self.result_label.setText(f"Heat capacity: {result} cal / g °C")
         except ValueError:
             self.result_label.setText("Please enter valid numbers.")
-
-
-def main():
-    app = QApplication(sys.argv)
-    ex = CpFromExperimentApp()
-    sys.exit(app.exec())
-
-
-if __name__ == "__main__":
-    main()
+        except ZeroDivisionError:
+            self.result_label.setText("Division by zero is not possible.")

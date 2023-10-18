@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButto
 from water_heat_capacity import calculate_tf_from_experiment
 
 
-class TFromCpExperimentApp(QWidget):
+class TfFromCpExperimentApp(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -61,13 +61,5 @@ class TFromCpExperimentApp(QWidget):
             self.result_label.setText(f"Equilibrium temperature: {result} °C")
         except ValueError:
             self.result_label.setText("Please enter valid numbers.")
-
-
-def main():
-    app = QApplication(sys.argv)
-    ex = TFromCpExperimentApp()
-    sys.exit(app.exec())
-
-
-if __name__ == "__main__":
-    main()
+        except ZeroDivisionError:
+            self.result_label.setText("Division by zero is not possible.")

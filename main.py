@@ -2,48 +2,54 @@ import sys
 
 from PyQt6.QtWidgets import (
     QApplication,
+    QHBoxLayout,
     QMainWindow,
     QPushButton,
     QVBoxLayout,
+    QStackedWidget,
     QWidget,
 )
 
 from Cp_from_experiment import CpFromExperimentApp
-from T_from_cp_experiment import TFromCpExperimentApp
+from Tf_from_cp_experiment import TfFromCpExperimentApp
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.window1 = CpFromExperimentApp()
-        self.window2 = TFromCpExperimentApp()
 
-        l = QVBoxLayout()
-        button1 = QPushButton("Push for Window 1")
-        button1.clicked.connect(self.toggle_window1)
-        l.addWidget(button1)
+        self.initUI()
 
-        button2 = QPushButton("Push for Window 2")
-        button2.clicked.connect(self.toggle_window2)
-        l.addWidget(button2)
+    def initUI(self):
+        self.stacked_widget = QStackedWidget(self)
 
-        w = QWidget()
-        w.setLayout(l)
-        self.setCentralWidget(w)
+        self.cp_from_experiment_app = CpFromExperimentApp()
+        self.tf_from_experiment_app = TfFromCpExperimentApp()
 
-    def toggle_window1(self, checked):
-        if self.window1.isVisible():
-            self.window1.hide()
+        self.stacked_widget.addWidget(self.cp_from_experiment_app)
+        self.stacked_widget.addWidget(self.tf_from_experiment_app)
 
-        else:
-            self.window1.show()
+        self.show_calculate_cp_button = QPushButton("Calculate Cp", self)
+        self.show_calculate_tf_button = QPushButton("Calculate Tf", self)
 
-    def toggle_window2(self, checked):
-        if self.window2.isVisible():
-            self.window2.hide()
+        self.show_calculate_cp_button.clicked.connect(self.show_calculate_cp_app)
+        self.show_calculate_tf_button.clicked.connect(self.show_calculate_tf_app)
 
-        else:
-            self.window2.show()
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(self.show_calculate_cp_button)
+        button_layout.addWidget(self.show_calculate_tf_button)
+
+        main_layout = QVBoxLayout()
+        main_layout.addWidget(self.stacked_widget)
+        main_layout.addLayout(button_layout)
+
+        self.setLayout(main_layout)
+
+    def show_calculate_cp_app(self):
+        self.stacked_widget.setCurrentIndex(0)
+
+    def show_calculate_tf_app(self):
+        self.stacked_widget.setCurrentIndex(1)
 
 
 app = QApplication(sys.argv)
