@@ -1,6 +1,6 @@
 CAL_JOULE = 4.184
-CC_MC: float = 6.0 # cal/°C
-CW: float = 1.0 # cal/g °C
+CALORIMETER_CONSTANT: float = 6.0 # cal/°C
+C_WATER: float = 1.0 # cal/g °C
 C_K = 273.15
 WATER_HEAT_CAPACITY_POLYNOMIAL = [-22.41701677, 0.876972156, -0.002570393, 2.48383e-6] # J/mol K
 MM_WATER = 18.01 # mol / g

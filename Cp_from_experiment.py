@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QGridLayout, QVBoxLayout
 
-from water_heat_capacity import water_heat_capacity_from_experiment
+from experiments import Experiment
 
 
 class CpFromExperimentApp(QWidget):
@@ -37,7 +37,7 @@ class CpFromExperimentApp(QWidget):
         grid_layout.addWidget(self.input_mass_2, 1, 3)
 
         self.addButton = QPushButton("Calculate", self)
-        self.addButton.clicked.connect(self.add_numbers)
+        self.addButton.clicked.connect(self.calculate_cp)
 
         self.result_label = QLabel("", self)
 
@@ -54,23 +54,14 @@ class CpFromExperimentApp(QWidget):
         self.setWindowTitle("Calorimetry")
         self.show()
 
-    def add_numbers(self):
+    def calculate_cp(self):
         try:
             mass_1 = float(self.input_mass_1.text())
             mass_2 = float(self.input_mass_2.text())
             temperature_1 = float(self.input_temperature_1.text())
             temperature_2 = float(self.input_temperature_2.text())
             temperature_f = float(self.input_temperature_f.text())
-            result = round(
-                water_heat_capacity_from_experiment(
-                    mass_1,
-                    mass_2,
-                    temperature_1,
-                    temperature_2,
-                    temperature_f,
-                ),
-                2,
-            )
+            result = round(Experiment(mass_1, mass_2, temperature_1, temperature_2, temperature_f).calculate_cp(), 2)
             self.result_label.setText(f"Heat capacity: {result} cal / g °C")
         except ValueError:
             self.result_label.setText("Please enter valid numbers.")

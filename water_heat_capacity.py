@@ -1,21 +1,9 @@
-from constants import CAL_JOULE, CC_MC, C_K, CW, MM_WATER, WATER_HEAT_CAPACITY_POLYNOMIAL
+from constants import CAL_JOULE, CALORIMETER_CONSTANT, C_K, C_WATER, MM_WATER, WATER_HEAT_CAPACITY_POLYNOMIAL
 
 
-def calculate_tf_from_experiment(mass_1: float, mass_2: float, temperature_1: float, temperature_2: float) -> float:
-    numerator = CC_MC * temperature_1 + CW * (mass_1 * temperature_1 + mass_2 * temperature_2)
-    denominator = CC_MC + (mass_1 + mass_2) * CW
-    return numerator / denominator
-
-
-def water_heat_capacity_from_experiment(
-    mass_1: float,
-    mass_2: float,
-    temperature_1: float,
-    temperature_2: float,
-    temperature_f: float,
-) -> float:
-    numerator = CC_MC * (temperature_f - temperature_1)
-    denominator = mass_1 * temperature_1 + mass_2 * temperature_2 - (mass_1 + mass_2) * temperature_f
+def calculate_tf_from_experiment(mass_1: float, mass_2: float, T_1: float, T_2: float) -> float:
+    numerator = CALORIMETER_CONSTANT * T_1 + C_WATER * (mass_1 * T_1 + mass_2 * T_2)
+    denominator = CALORIMETER_CONSTANT + (mass_1 + mass_2) * C_WATER
     return numerator / denominator
 
 
