@@ -10,6 +10,8 @@ from PyQt6.QtWidgets import (
 )
 
 from Cp_from_experiment import CpFromExperimentApp
+from li_from_experiment import LiFromExperimentApp
+from lv_from_experiment import LvFromExperimentApp
 from Tf_from_cp_experiment import TfFromCpExperimentApp
 
 
@@ -22,6 +24,8 @@ class MainWindow(QWidget):
     def initUI(self):
         self.combo_box = QComboBox()
         self.combo_box.addItem("Calculate Cp")
+        self.combo_box.addItem("Calculate Li")
+        self.combo_box.addItem("Calculate Lv")
         self.combo_box.addItem("Calculate Tf")
         self.combo_box.activated.connect(self.show_widget_calculator)
 
@@ -29,10 +33,14 @@ class MainWindow(QWidget):
         self.combo_box_layout.addWidget(self.combo_box)
 
         self.cp_from_experiment_app = CpFromExperimentApp()
+        self.li_from_experiment_app = LiFromExperimentApp()
+        self.lv_from_experiment_app = LvFromExperimentApp()
         self.tf_from_experiment_app = TfFromCpExperimentApp()
 
         self.stacked_widget = QStackedWidget(self)
         self.stacked_widget.addWidget(self.cp_from_experiment_app)
+        self.stacked_widget.addWidget(self.li_from_experiment_app)
+        self.stacked_widget.addWidget(self.lv_from_experiment_app)
         self.stacked_widget.addWidget(self.tf_from_experiment_app)
 
         main_layout = QVBoxLayout()
@@ -40,6 +48,8 @@ class MainWindow(QWidget):
         main_layout.addWidget(self.stacked_widget)
 
         self.setLayout(main_layout)
+
+        self.setWindowTitle("Thermodynamics")
 
     def show_widget_calculator(self):
         self.stacked_widget.setCurrentIndex(self.combo_box.currentIndex())

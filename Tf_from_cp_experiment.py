@@ -47,9 +47,6 @@ class TfFromCpExperimentApp(QWidget):
 
         self.setLayout(main_layout)
 
-        self.setWindowTitle("Calorimetry")
-        self.show()
-
     def add_numbers(self):
         try:
             mass_1 = float(self.input_mass_1.text())

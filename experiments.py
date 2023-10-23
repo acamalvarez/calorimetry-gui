@@ -19,7 +19,7 @@ class Experiment:
             2,
         )
 
-    def calculate_hf(self) -> float:
+    def calculate_li(self) -> float:
         return round(
             (
                 (C_WATER * self.mass_1 + CALORIMETER_CONSTANT) * (self.T_1 - self.T_f)
@@ -29,7 +29,12 @@ class Experiment:
             2,
         )
 
-    def calculate_hv(self) -> float:
+    def calculate_lv(self) -> float:
+        print(self.mass_1)
+        print(self.mass_2)
+        print(self.T_1)
+        print(self.T_2)
+        print(self.T_f)
         return round(
             (
                 (C_WATER * self.mass_1 + CALORIMETER_CONSTANT) * (self.T_f - self.T_1)
