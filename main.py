@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from Cp_from_experiment import CpFromExperimentApp
+from cp_from_experiment import CpFromExperimentApp
 from li_from_experiment import LiFromExperimentApp
 from lv_from_experiment import LvFromExperimentApp
 from Tf_from_cp_experiment import TfFromCpExperimentApp
